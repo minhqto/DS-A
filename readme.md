@@ -4,15 +4,17 @@ I'm using this as practice for knowledge and understanding of DS & A!
 
 Data Structures:
 
-- [X] Linked List
-- [ ] Stack
+- [x] Linked List
+- [x] Stack
 - [ ] Queue
+- [ ] Binary Heap
 - [ ] Hash Table
 - [ ] BST
 - [ ] AVL Tree
 - [ ] Graph
 
 Algorithms:
+
 - [ ] Simple sorts
 - [ ] Merge sort
 - [ ] Heap sort

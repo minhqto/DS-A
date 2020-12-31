@@ -1,0 +1,24 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/minhto/Documents/Projects/Data Structures & Algorithms/Stack/Stack.cpp
+Stack.h
+/Users/minhto/Documents/Projects/Data Structures & Algorithms/Stack/Stack.h
+
+/Users/minhto/Documents/Projects/Data Structures & Algorithms/Stack/Stack.h
+iostream
+-
+
+/Users/minhto/Documents/Projects/Data Structures & Algorithms/Stack/main.cpp
+Stack.h
+/Users/minhto/Documents/Projects/Data Structures & Algorithms/Stack/Stack.h
+string.h
+/Users/minhto/Documents/Projects/Data Structures & Algorithms/Stack/string.h
+vector
+-
+

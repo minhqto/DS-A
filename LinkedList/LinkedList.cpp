@@ -46,7 +46,7 @@ void List::remove(int d)
         if (temp == this->head_)
         {
             this->head_ = this->head_->next;
-            delete temp;
+            delete temp;    
         }
         else if (temp == this->tail_)
         {

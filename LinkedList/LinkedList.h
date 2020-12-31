@@ -11,7 +11,7 @@ class List
         int data_;
         Node *next;
         Node *prev;
-        Node() : data_(0), next(nullptr), prev(nullptr) {}
+        Node() : data_(0), next(nullptr), prev(nullptr) {} //member initializer list
         Node(int d, Node *n, Node *p) : data_(d), next(n), prev(p) {}
     };
 
