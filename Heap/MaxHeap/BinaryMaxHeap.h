@@ -8,9 +8,10 @@
 template <class T>
 class BinaryMaxHeap
 {
-
+    //decided to use dynamically allocated memory instead of a vector, just for a greater challenge
     T *heapArr;
     int size_;
+    int capacity;
     int parent(int i)
     {
         return (i - 1) / 2; //no need to floor because c++ floors by default
@@ -32,6 +33,28 @@ class BinaryMaxHeap
             heapifyUp(this->parent(idx));
         }
     }
+
+    void heapifyDown(int idx)
+    {
+        int largest = idx;
+        //check left child
+        if (this->heapArr[idx] < this->heapArr[this->left(idx)])
+        {
+            largest = this->left(idx);
+        }
+        //check right child
+        if (this->heapArr[this->right(idx)] > this->heapArr[largest])
+        {
+            largest = this->right(idx);
+        }
+        // must check that the idx named largest isn't greater than the size of the heap, otherwise it will pull in "deleted" data
+        if (largest <= this->size_ && largest != idx)
+        {
+            std::swap(this->heapArr[largest], this->heapArr[idx]);
+            heapifyDown(largest);
+        }
+    }
+
     bool search(const T &data)
     {
         for (int i = 0; i < this->size_; i++)
@@ -44,56 +67,49 @@ class BinaryMaxHeap
         return false;
     }
 
-    void heapifyDown(int idx)
+    void resize()
     {
-        //base case: when the curr element is greater than both of it's parents
-        int largest = idx;
-        //check left child
-        if (this->heapArr[idx] < this->heapArr[this->left(idx)])
+        this->capacity += 10;
+        T *temp = new T[this->size_];
+        for (int i = 0; i < this->size_; i++)
         {
-            largest = this->heapArr[this->left(idx)];
-        }
-        //check right child
-        if (this->heapArr[this->right(idx)] > largest)
-        {
-            largest = this->heapArr[this->right(idx)];
+            temp[i] = this->heapArr[i];
         }
 
-        if (largest != idx)
+        delete[] this->heapArr;
+        this->heapArr = nullptr;
+        this->heapArr = new T[this->capacity];
+
+        for (int i = 0; i < this->size_; i++)
         {
-            std::swap(this->heapArr[largest], this - heapArr[idx]);
-            heapifyDown(largest);
+            this->heapArr[i] = temp[i];
         }
+        delete[] temp;
+        std::cout << "Heap can now hold " << this->capacity << " elements" << std::endl;
     }
 
 public:
     BinaryMaxHeap()
     {
-        this->heapArr = nullptr;
+        this->capacity = 10;
+        this->heapArr = new T[this->capacity];
         this->size_ = 0;
     }
     void insert(T data)
     {
         if (this->size_ == 0)
         {
-            this->heapArr = new T[++this->size_];
-            this->heapArr[this->size_ - 1] = data;
+            this->heapArr[this->size_++] = data;
         }
-        else
+        else if (this->size_ < this->capacity)
         {
-            T *temp = new T[this->size_];
-            for (int i = 0; i < this->size_; i++)
-            {
-                temp[i] = this->heapArr[i];
-            }
-            this->heapArr = new T[++this->size_];
-            for (int i = 0; i < this->size_ - 1; i++)
-            {
-                this->heapArr[i] = temp[i];
-            }
-
-            //insert at the end of the heap. then heapify
-            this->heapArr[this->size_ - 1] = data;
+            this->heapArr[this->size_++] = data;
+            this->heapifyUp(this->size_ - 1);
+        }
+        else if (this->size_ >= this->capacity)
+        {
+            this->resize();
+            this->heapArr[this->size_++] = data;
             this->heapifyUp(this->size_ - 1);
         }
     }
@@ -102,25 +118,42 @@ public:
         return this->heapArr[0];
     }
 
-    void deleteNode(const T &data)
+    void deleteMax()
     {
-        if (this->search(data))
+        if (!this->isEmpty())
         {
+            T temp = this->heapArr[0];
+            //remove the top node. replace the top node with the most recent node. heapifyDown
+            this->heapArr[0] = this->heapArr[--this->size_];
+            this->heapifyDown(0);
+            std::cout << "Element " << temp << " deleted!" << std::endl;
         }
         else
         {
-            std::cout << "Element does not exist!" << std::endl;
+            std::cout << "Heap is empty!" << std::endl;
         }
     }
     bool isEmpty()
     {
         return this->size_ == 0;
     }
+
+    int getSize()
+    {
+        return this->size_;
+    }
     void displayHeap()
     {
-        for (int i = 0; i < this->size_; i++)
+        if (!this->isEmpty())
         {
-            std::cout << this->heapArr[i] << std::endl;
+            for (int i = 0; i < this->size_; i++)
+            {
+                std::cout << this->heapArr[i] << std::endl;
+            }
+        }
+        else
+        {
+            std::cout << "Heap is empty!" << std::endl;
         }
     }
 };

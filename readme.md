@@ -7,7 +7,8 @@ Data Structures:
 - [x] Linked List
 - [x] Stack
 - [ ] Queue
-- [ ] Binary Heap
+- [x] Max Heap
+- [ ] Min Heap
 - [ ] Hash Table
 - [ ] BST
 - [ ] AVL Tree
